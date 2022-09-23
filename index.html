@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Plain(er) SQL is better than JPA</title>
+
+		<link rel="stylesheet" href="revealjs/dist/reset.css">
+		<link rel="stylesheet" href="revealjs/dist/reveal.css">
+		<link rel="stylesheet" href="revealjs/dist/theme/moon.css">
+	</head>
+	<body>
+        <div class="reveal">
+            <div class="slides">
+
+                <section>
+		            <h2>Plain(er) SQL is better than JPA</h2>
+                    <p>Some thoughts why you might choose <strong>not</strong>
+                    to use JPA next time</p>
+                </section>
+
+                <section>
+                    <h2>Prior warning</h2>
+                    <p>
+                        Views might rely on outdated JPA knowledge
+                    </p>
+                    <p>
+                        Views are not globally valid. Think before you act
+                    </p>
+                    <p>
+                        Let me know if I tell stupid stuff. I am more than happy to
+                        change my opinion
+                    </p>
+                </section>
+
+                <section> 
+                    <h2>Why are we using JPA?</h2>
+                    <ul>
+                        <li>The project already uses it</li>
+                        <li>It keeps me from writing SQL</li>
+                        <li>It is a standard</li>
+                    </ul>   
+                </section>
+
+                <section>
+                    <h2>Why shouldn't I use JPA?</h2>
+                    <ul>
+                        <li>Less hassle to setup</li>
+                        <li>No (well, less) annotations</li>
+                        <li>Way less surprises (e.g. lazy loading)</li>
+                        <li>Good luck doing JPA when you want to use coroutines</li>
+                        <li>How often do you write SQL anyway?</li>
+                        <li>How often does JPA limit you from using SQL at its
+                            best?</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Why shouldn't I use JPA? (continued)</h2>
+                    <ul>
+                        <li>Overkill when doing DDD</li>
+                        <li>Too much for a microservie with few db entities</li>
+                        <li>Hibernate/JPA where meant for complect Object
+                            relations. <a href="https://www.javaperformancetuning.com/news/interview041.shtml">Opinion of Gavin King</a></li>
+                        <li>It might be faster</li>
+                    </ul>
+                </section>
+
+                <section> 
+                    <h2>What did you use instead?</h2>
+                    <ul>
+                        <li>Spring: SpringJdbcTemplate</li>
+                        <li>Micronaut: JdbcOperations from Micronat Data + extension functions</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>How did you use that?</h2>
+                    <ol>
+                        <li>Load all data you'll need right at the beginning</li>
+                        <li>Use decent Domain Object for your business logic</li>
+                        <li>Store previously collected changes right at the end</li>
+                        <li>This pushes DB I/O at the boundaries of your system</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Any other advantages?</h2>
+                        <p>Upserts (UPDATE or INSERT)</p>
+                        <pre class="fragment">
+                            <code data-trim>
+                            INSERT INTO table (value_1, value_2, ..., value_N)
+                                VALUES (?, ?, ..., ?)
+                            ON CONFLICT (value_1) DO UPDATE
+                                    SET value_2 = excluded.value_2,
+                                        ... = ...,
+                                        value_N = excluded.value_N)
+                            </code>
+                        </pre>
+                </section>
+
+                <section>
+                    <h2>Not more, just different problems</h2>
+                    <ul>
+                        <li>No annotations but more "code"</li>
+                        <li>more or less the same number of lines of code</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Anything you missed from JPA?</h2>
+                    <ul>
+                       <li>Optimistic locking is a little bit tedious</li>
+                       <li>Cached sequence values</li>
+                       <li>Complex object relations are really a pain</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+
+		<script src="revealjs/dist/reveal.js"></script>
+		<script src="revealjs/plugin/notes/notes.js"></script>
+		<script src="revealjs/plugin/markdown/markdown.js"></script>
+		<script src="revealjs/plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
