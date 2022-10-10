@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Plain SQL is better than JPA</title>
+        <title>Plain SQL is better than JPA</title>
 
-		<link rel="stylesheet" href="revealjs/dist/reset.css">
-		<link rel="stylesheet" href="revealjs/dist/reveal.css">
-		<link rel="stylesheet" href="revealjs/dist/theme/moon.css">
-	</head>
-	<body>
+        <link rel="stylesheet" href="revealjs/dist/reset.css">
+        <link rel="stylesheet" href="revealjs/dist/reveal.css">
+        <link rel="stylesheet" href="revealjs/dist/theme/moon.css">
+    </head>
+    <body>
         <div class="reveal">
             <div class="slides">
 
                 <section>
-		            <h2>Plain SQL is better than JPA</h2>
+                    <h2>Plain SQL is better than JPA</h2>
                     <p>Some thoughts why you might choose <strong>not</strong>
                     to use JPA next time</p>
                 </section>
@@ -23,14 +23,14 @@
                 <section>
                     <h2>Prior warning</h2>
                     <p>
-                        Views might rely on outdated JPA knowledge
+                    Views might rely on outdated JPA knowledge
                     </p>
                     <p>
-                        Views are not globally valid. Think before you act
+                    Views are not globally valid. Think before you act
                     </p>
                     <p>
-                        Let me know if I tell stupid stuff. I am more than happy to
-                        change my opinion
+                    Let me know if I tell stupid stuff. I am more than happy to
+                    change my opinion
                     </p>
                 </section>
 
@@ -83,19 +83,19 @@
                         <li>Store previously collected changes right at the end</li>
                     </ol>
                     <p class="fragment">
-                        This pushes DB I/O at the boundaries of your system
+                    This pushes DB I/O at the boundaries of your system
                     </p>
                     <p class="fragment">
-                        Or in fancy speak: We did a <a href="https://blog.ploeh.dk/2020/03/02/impureim-sandwich/">
-                         impureim sandwich</a>
+                    Or in fancy speak: We did a <a href="https://blog.ploeh.dk/2020/03/02/impureim-sandwich/">
+                        impureim sandwich</a>
                     </p>
 
                 </section>
 
                 <section>
                     <h2>Any other advantages?</h2>
-                        <p>Upserts (UPDATE or INSERT)</p>
-                        <pre class="fragment">
+                    <p>Upserts (UPDATE or INSERT)</p>
+                    <pre class="fragment">
                             <code data-trim>
                             INSERT INTO table (value_1, value_2, ..., value_N)
                                 VALUES (?, ?, ..., ?)
@@ -104,7 +104,7 @@
                                         ... = ...,
                                         value_N = excluded.value_N)
                             </code>
-                        </pre>
+                    </pre>
                 </section>
 
                 <section>
@@ -118,9 +118,9 @@
                 <section>
                     <h2>Anything you missed from JPA?</h2>
                     <ul>
-                       <li>Optimistic locking is a little bit tedious</li>
-                       <li>Cached sequence values</li>
-                       <li>Complex object relations are really a pain</li>
+                        <li>Optimistic locking is a little bit tedious</li>
+                        <li>Cached sequence values</li>
+                        <li>Complex object relations are really a pain</li>
                     </ul>
                 </section>
 
@@ -137,25 +137,25 @@
                 <section>
                     <h2>You want to see the slides again?</h2>
                     <img src="qrcode-to-repository.svg" alt="qr code with link
-                              to location of the slides"/>
+                                                       to location of the slides"/>
                 </section>
             </div>
         </div>
 
-		<script src="revealjs/dist/reveal.js"></script>
-		<script src="revealjs/plugin/notes/notes.js"></script>
-		<script src="revealjs/plugin/markdown/markdown.js"></script>
-		<script src="revealjs/plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+        <script src="revealjs/dist/reveal.js"></script>
+        <script src="revealjs/plugin/notes/notes.js"></script>
+        <script src="revealjs/plugin/markdown/markdown.js"></script>
+        <script src="revealjs/plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+            });
+        </script>
+    </body>
 </html>
